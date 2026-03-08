@@ -16,7 +16,7 @@ const {
     UpdateCommand,
 } = require('@aws-sdk/lib-dynamodb');
 const bcrypt = require('bcryptjs');
-const { v4: uuidv4 } = require('uuid');
+const crypto = require('crypto');
 
 /**
  * Create a new user. Hashes the password before storing.
@@ -27,7 +27,7 @@ async function createUser({ name, email, password }) {
     const hashedPassword = await bcrypt.hash(password, salt);
 
     const now = new Date().toISOString();
-    const userId = uuidv4();
+    const userId = crypto.randomUUID();
 
     const item = {
         userId,

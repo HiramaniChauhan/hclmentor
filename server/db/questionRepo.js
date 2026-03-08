@@ -9,7 +9,7 @@
 const { ddb } = require('./dynamodb');
 const { QUESTIONS_TABLE } = require('./tables');
 const { PutCommand, QueryCommand } = require('@aws-sdk/lib-dynamodb');
-const { v4: uuidv4 } = require('uuid');
+const crypto = require('crypto');
 
 /**
  * Save a question asked by a student (image solver or chat).
@@ -17,7 +17,7 @@ const { v4: uuidv4 } = require('uuid');
  */
 async function createQuestion({ userId, type, question, answer = '', topic = 'General' }) {
     const now = new Date().toISOString();
-    const questionId = uuidv4();
+    const questionId = crypto.randomUUID();
 
     const item = {
         userId,

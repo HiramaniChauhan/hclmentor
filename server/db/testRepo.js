@@ -10,7 +10,7 @@
 const { ddb } = require('./dynamodb');
 const { TESTS_TABLE } = require('./tables');
 const { PutCommand, GetCommand } = require('@aws-sdk/lib-dynamodb');
-const { v4: uuidv4 } = require('uuid');
+const crypto = require('crypto');
 
 /**
  * Persist an AI-generated test to DynamoDB.
@@ -18,7 +18,7 @@ const { v4: uuidv4 } = require('uuid');
  */
 async function createTest({ userId, topic, questions }) {
     const now = new Date().toISOString();
-    const testId = uuidv4();
+    const testId = crypto.randomUUID();
 
     const item = {
         testId,

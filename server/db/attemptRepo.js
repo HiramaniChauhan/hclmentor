@@ -10,7 +10,7 @@
 const { ddb } = require('./dynamodb');
 const { ATTEMPTS_TABLE } = require('./tables');
 const { PutCommand, QueryCommand, ScanCommand } = require('@aws-sdk/lib-dynamodb');
-const { v4: uuidv4 } = require('uuid');
+const crypto = require('crypto');
 
 /**
  * Save a completed (or partial) test attempt.
@@ -18,7 +18,7 @@ const { v4: uuidv4 } = require('uuid');
  */
 async function createAttempt({ userId, testId, topic, answers, score, total }) {
     const now = new Date().toISOString();
-    const attemptId = uuidv4();
+    const attemptId = crypto.randomUUID();
 
     const item = {
         userId: userId || 'guest',
