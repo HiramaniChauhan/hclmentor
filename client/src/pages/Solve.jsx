@@ -9,6 +9,7 @@ import ImageUpload from '../components/ImageUpload';
 import MathText from '../components/MathText';
 import { solveQuestion, saveQuestion } from '../services/api';
 import { useAuth } from '../context/AuthContext';
+import { Camera } from 'lucide-react';
 
 export default function Solve() {
     const [result, setResult] = useState(null);
@@ -44,8 +45,10 @@ export default function Solve() {
     return (
         <div className="max-w-4xl mx-auto px-4 py-10">
             {/* Header */}
-            <div className="text-center mb-10 animate-fade-in-up">
-                <h1 className="text-3xl font-bold gradient-text mb-2">📸 Image Question Solver</h1>
+            <div className="text-center mb-10 animate-fade-in-up flex flex-col items-center">
+                <h1 className="text-3xl font-bold gradient-text mb-2 flex items-center justify-center gap-3">
+                    <Camera size={32} className="text-brand-400" /> Image Question Solver
+                </h1>
                 <p className="text-gray-400">
                     Upload a photo of your question — Nova AI will extract, understand, and solve it step-by-step.
                 </p>

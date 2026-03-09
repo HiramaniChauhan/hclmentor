@@ -9,6 +9,7 @@ import { useState, useEffect } from 'react';
 import { analyzePerformance, getQuestions, getLeaderboard } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import MathText from '../components/MathText';
+import { CheckCircle2, XCircle, ChevronUp, Trophy, MessageCircle, FileText, Camera, Medal, Bot, RefreshCw } from 'lucide-react';
 
 // Small markdown renderer for AI analysis text
 function SimpleMarkdown({ text }) {
@@ -114,7 +115,7 @@ function AttemptList({ attempts }) {
                                                         return (
                                                             <div key={oi} className={`flex items-start gap-2 px-3 py-2 rounded-lg border text-xs ${cls}`}>
                                                                 <span className="font-bold shrink-0">
-                                                                    {isCorrect ? '✅' : wrongChoice ? '❌' : ''}
+                                                                    {isCorrect ? <CheckCircle2 size={16} className="text-emerald-500 inline-block" /> : wrongChoice ? <XCircle size={16} className="text-red-500 inline-block" /> : ''}
                                                                     {!isCorrect && !wrongChoice && <span className="opacity-40">{letter}.</span>}
                                                                     {(isCorrect || wrongChoice) && ` ${letter}.`}
                                                                 </span>
@@ -270,7 +271,7 @@ export default function Dashboard() {
                             </p>
                             <p className="text-xs text-gray-400 mt-1">Your Rank</p>
                             <p className="text-[10px] text-yellow-600 mt-1">
-                                {openPanel === 'leaderboard' ? '▲ Close' : '🏆 Leaderboard'}
+                                {openPanel === 'leaderboard' ? <><ChevronUp size={14} className="inline mr-1" /> Close</> : <><Trophy size={14} className="inline mr-1" /> Leaderboard</>}
                             </p>
                         </button>
                     </div>
@@ -293,11 +294,11 @@ export default function Dashboard() {
                     {openPanel === 'questions' && (
                         <div className="glass-card p-6 animate-fade-in-up">
                             <h2 className="text-sm font-semibold text-cyan-300 uppercase tracking-wide mb-4">
-                                💬 Questions History ({questions.length})
+                                <MessageCircle size={20} className="inline mr-2 text-cyan-400" /> Questions History ({questions.length})
                             </h2>
                             {questions.length === 0 ? (
                                 <div className="text-center py-10">
-                                    <div className="text-4xl mb-3">📝</div>
+                                    <FileText size={48} className="mx-auto mb-3 text-cyan-400" />
                                     <p className="text-gray-500 text-sm">No questions asked yet. Start solving or chatting!</p>
                                 </div>
                             ) : (
@@ -305,7 +306,7 @@ export default function Dashboard() {
                                     {questions.map((q, i) => (
                                         <div key={q.questionId || i} className="border border-white/5 rounded-xl p-4 hover:bg-white/3 transition-colors">
                                             <div className="flex items-center gap-2 mb-2">
-                                                <span className="text-lg">{q.type === 'image' ? '📸' : '💬'}</span>
+                                                <span className="text-lg flex items-center">{q.type === 'image' ? <Camera size={18} /> : <MessageCircle size={18} />}</span>
                                                 <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${q.type === 'image'
                                                     ? 'bg-violet-500/20 text-violet-300'
                                                     : 'bg-cyan-500/20 text-cyan-300'
@@ -346,7 +347,7 @@ export default function Dashboard() {
                         <div className="glass-card p-6 animate-fade-in-up">
                             <div className="flex items-center justify-between mb-5">
                                 <h2 className="text-sm font-semibold text-yellow-300 uppercase tracking-wide">
-                                    🏆 Class Leaderboard — Top 10
+                                    <Trophy size={20} className="inline mr-2 text-yellow-400" /> Class Leaderboard — Top 10
                                 </h2>
                                 <span className="text-xs text-gray-500">
                                     Ranked by accuracy over last 10 tests
@@ -366,7 +367,7 @@ export default function Dashboard() {
 
                             {leaderboard.length === 0 ? (
                                 <div className="text-center py-10">
-                                    <div className="text-4xl mb-3">🏆</div>
+                                    <Trophy size={48} className="mx-auto mb-3 text-yellow-400" />
                                     <p className="text-gray-500 text-sm">No test data yet. Take a practice test to appear on the leaderboard!</p>
                                 </div>
                             ) : (
@@ -380,9 +381,9 @@ export default function Dashboard() {
                                     </div>
                                     {leaderboard.map((entry) => {
                                         const isMe = entry.userId?.toString() === user?.id?.toString();
-                                        const medal = entry.rank === 1 ? '🥇'
-                                            : entry.rank === 2 ? '🥈'
-                                                : entry.rank === 3 ? '🥉' : null;
+                                        const medal = entry.rank === 1 ? <Medal size={20} className="text-yellow-400" />
+                                            : entry.rank === 2 ? <Medal size={20} className="text-gray-300" />
+                                                : entry.rank === 3 ? <Medal size={20} className="text-amber-600" /> : null;
                                         const accCls = entry.accuracy >= 80
                                             ? 'text-emerald-300'
                                             : entry.accuracy >= 50 ? 'text-amber-300' : 'text-red-300';
@@ -443,7 +444,7 @@ export default function Dashboard() {
                     {data.analysis && (
                         <div className="glass-card p-6">
                             <h2 className="text-sm font-semibold text-brand-400 uppercase tracking-wide mb-3">
-                                🤖 AI Study Recommendations
+                                <Bot size={20} className="inline mr-2 text-brand-400" /> AI Study Recommendations
                             </h2>
                             <SimpleMarkdown text={data.analysis} />
                         </div>
@@ -455,7 +456,7 @@ export default function Dashboard() {
             {/* Refresh */}
             {!loading && (
                 <div className="text-center mt-8">
-                    <button onClick={fetchData} className="btn-secondary">🔄 Refresh Data</button>
+                    <button onClick={fetchData} className="btn-secondary flex items-center justify-center gap-2 mx-auto"><RefreshCw size={16} /> Refresh Data</button>
                 </div>
             )}
         </div>

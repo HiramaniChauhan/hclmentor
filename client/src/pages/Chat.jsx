@@ -9,6 +9,7 @@ import ChatBox from '../components/ChatBox';
 import VoiceButton from '../components/VoiceButton';
 import { chat as chatApi, saveQuestion } from '../services/api';
 import { useAuth } from '../context/AuthContext';
+import { MessageCircle } from 'lucide-react';
 
 export default function Chat() {
     const [messages, setMessages] = useState([]);
@@ -42,7 +43,7 @@ export default function Chat() {
             } catch (err) {
                 const errMsg = {
                     role: 'assistant',
-                    content: `⚠️ Error: ${err.response?.data?.error || 'Something went wrong. Please try again.'}`,
+                    content: `Error: ${err.response?.data?.error || 'Something went wrong. Please try again.'}`,
                 };
                 setMessages((prev) => [...prev, errMsg]);
             } finally {
@@ -64,7 +65,9 @@ export default function Chat() {
             {/* Header */}
             <div className="flex items-center justify-between mb-4 animate-fade-in-up">
                 <div>
-                    <h1 className="text-2xl font-bold gradient-text">💬 AI Chat Tutor</h1>
+                    <h1 className="text-2xl font-bold gradient-text flex items-center gap-2">
+                        <MessageCircle size={24} className="text-brand-400" /> AI Chat Tutor
+                    </h1>
                     <p className="text-sm text-gray-500">Ask anything — I'll explain like a friendly teacher.</p>
                 </div>
                 <VoiceButton onTranscript={handleVoiceTranscript} textToSpeak={lastAiReply} />

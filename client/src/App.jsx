@@ -11,13 +11,13 @@ import Chat from './pages/Chat';
 import Practice from './pages/Practice';
 import Dashboard from './pages/Dashboard';
 import Auth from './pages/Auth';
-
+import { Home as HomeIcon, Camera, MessageCircle, FileText, BarChart2, Trophy, Mail, Hand, Phone } from 'lucide-react';
 const NAV_ITEMS = [
-    { to: '/', label: 'Home', icon: '🏠' },
-    { to: '/solve', label: 'Solve', icon: '📸' },
-    { to: '/chat', label: 'Chat', icon: '💬' },
-    { to: '/practice', label: 'Practice', icon: '📝' },
-    { to: '/dashboard', label: 'Dashboard', icon: '📊' },
+    { to: '/', label: 'Home', icon: <HomeIcon size={18} /> },
+    { to: '/solve', label: 'Solve', icon: <Camera size={18} /> },
+    { to: '/chat', label: 'Chat', icon: <MessageCircle size={18} /> },
+    { to: '/practice', label: 'Practice', icon: <FileText size={18} /> },
+    { to: '/dashboard', label: 'Dashboard', icon: <BarChart2 size={18} /> },
 ];
 
 function RequireAuth({ children }) {
@@ -45,8 +45,8 @@ function Footer() {
                             <p className="text-xs text-gray-500 uppercase tracking-widest mb-2">Mentor</p>
                             <p className="text-white font-semibold">HIRAMANI CHAUHAN</p>
                             <div className="flex items-center gap-2">
-                                <span className="text-xs bg-brand-500/20 text-brand-300 border border-brand-500/30 px-2 py-0.5 rounded-full font-medium">
-                                    🏆 AIR 06 — NIMCET
+                                <span className="flex items-center gap-1.5 text-xs bg-brand-500/20 text-brand-300 border border-brand-500/30 px-2 py-0.5 rounded-full font-medium">
+                                    <Trophy size={14} className="text-brand-400" /> AIR 06 — NIMCET
                                 </span>
                             </div>
                         </div>
@@ -96,13 +96,13 @@ function Footer() {
                             {/* Phone */}
                             {/* <a href="tel:+916392387678"
                                 className="flex items-center gap-3 text-sm text-gray-400 hover:text-emerald-400 transition-colors">
-                                <span className="text-xl">📞</span>
+                                <Phone size={20} />
                                 <span>+91-6392387678</span>
                             </a> */}
                             {/* Email */}
                             <a href="mailto:hclinstitute.official@gmail.com"
                                 className="flex items-center gap-3 text-sm text-gray-400 hover:text-brand-400 transition-colors">
-                                <span className="text-xl">✉️</span>
+                                <Mail size={20} />
                                 <span>hclinstitute.official@gmail.com</span>
                             </a>
                         </div>
@@ -172,8 +172,8 @@ function AppLayout() {
                         <div className="flex items-center gap-3">
                             {user ? (
                                 <>
-                                    <span className="text-sm text-gray-400 hidden sm:inline">
-                                        👋 <span className="text-brand-300 font-medium">{user.name}</span>
+                                    <span className="flex items-center gap-1.5 text-sm text-gray-400 hidden sm:flex">
+                                        <Hand size={16} /> <span className="text-brand-300 font-medium">{user.name}</span>
                                     </span>
                                     <button onClick={handleLogout} className="btn-secondary text-xs px-3 py-2">
                                         Sign Out

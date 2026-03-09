@@ -6,6 +6,7 @@
  */
 
 import { useState, useRef, useEffect } from 'react';
+import { Mic, MicOff, Square } from 'lucide-react';
 
 // Grab the browser SpeechRecognition constructor (works in Chrome, Edge, Safari)
 const SpeechRecognition =
@@ -60,8 +61,8 @@ export default function VoiceButton({ onTranscript, textToSpeak }) {
 
     if (!supported) {
         return (
-            <button disabled className="btn-secondary opacity-50 cursor-not-allowed" title="Voice not supported in this browser">
-                🎤 Not supported
+            <button disabled className="btn-secondary opacity-50 cursor-not-allowed flex items-center gap-2 text-sm">
+                <MicOff size={16} /> Not supported
             </button>
         );
     }
@@ -80,10 +81,12 @@ export default function VoiceButton({ onTranscript, textToSpeak }) {
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
                         <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
                     </span>
-                    Listening…
+                    <Square size={16} /> Stop Listening
                 </>
             ) : (
-                <>🎤 Voice Input</>
+                <>
+                    <Mic size={16} /> Voice Input
+                </>
             )}
         </button>
     );

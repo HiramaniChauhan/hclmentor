@@ -7,6 +7,7 @@
 import { useState, useRef, useCallback } from 'react';
 import ReactCrop from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
+import { Camera, Crop, X, Search } from 'lucide-react';
 
 // ---- helper: produce a cropped Blob from the crop selection ----
 function getCroppedBlob(image, crop) {
@@ -126,7 +127,7 @@ export default function ImageUpload({ onUpload, loading }) {
                         className="hidden"
                         onChange={(e) => handleFile(e.target.files[0])}
                     />
-                    <div className="text-5xl mb-4">📷</div>
+                    <Camera size={48} className="mx-auto mb-4 text-brand-400" />
                     <p className="text-lg font-medium text-gray-300">Drop your question image here</p>
                     <p className="text-sm text-gray-500 mt-1">or click to browse • JPG, PNG, WEBP</p>
                 </div>
@@ -160,8 +161,12 @@ export default function ImageUpload({ onUpload, loading }) {
                     </p>
 
                     <div className="flex gap-3 justify-center">
-                        <button onClick={confirmCrop} className="btn-primary">✂️ Crop &amp; Preview</button>
-                        <button onClick={reset} className="btn-secondary">✕ Clear</button>
+                        <button onClick={confirmCrop} className="btn-primary flex items-center gap-2">
+                            <Crop size={16} /> Crop &amp; Preview
+                        </button>
+                        <button onClick={reset} className="btn-secondary flex items-center gap-2">
+                            <X size={16} /> Clear
+                        </button>
                     </div>
                 </div>
             )}
@@ -188,11 +193,17 @@ export default function ImageUpload({ onUpload, loading }) {
                                     Solving…
                                 </>
                             ) : (
-                                '🔍 Solve This Question'
+                                <span className="flex items-center gap-2">
+                                    <Search size={16} /> Solve This Question
+                                </span>
                             )}
                         </button>
-                        <button onClick={recrop} className="btn-secondary">✂️ Re-crop</button>
-                        <button onClick={reset} className="btn-secondary">✕ Clear</button>
+                        <button onClick={recrop} className="btn-secondary flex items-center gap-2">
+                            <Crop size={16} /> Re-crop
+                        </button>
+                        <button onClick={reset} className="btn-secondary flex items-center gap-2">
+                            <X size={16} /> Clear
+                        </button>
                     </div>
                 </div>
             )}

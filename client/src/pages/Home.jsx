@@ -5,6 +5,7 @@
 
 import { Link } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
+import { Camera, MessageCircle, FileText, BarChart2 } from 'lucide-react';
 
 // ── Math symbols that fall in the background ──────────────────────────────────
 const SYMBOLS = [
@@ -41,8 +42,8 @@ const SYMBOLS = [
     '∑aᵢ', '∏bᵢ', '⌊x⌋', '⌈x⌉',
     // Stats
     'P(A|B)', 'μ', 'σ²', 'E[X]', 'Var', 'Cov', 'N(0,1)', 'χ²', 'β₀', 'β₁',
-    // Study emojis
-    '🎓', '📐', '📏', '🔬', '💡', '📚', '🧮', '🔭', '📊', '🧠', '✏️', '🖊️', '🎯', '🏆',
+    // Stats
+    'P(A|B)', 'μ', 'σ²', 'E[X]', 'Var', 'Cov', 'N(0,1)', 'χ²', 'β₀', 'β₁',
 ];
 
 // ── Canvas animation ──────────────────────────────────────────────────────────
@@ -134,28 +135,28 @@ function MathRain() {
 // ── Feature cards ─────────────────────────────────────────────────────────────
 const FEATURES = [
     {
-        icon: '📸',
+        icon: <Camera size={28} className="text-white" />,
         title: 'Image Solver',
         desc: 'Upload a photo of any math problem and get a step-by-step solution powered by Amazon Nova.',
         to: '/solve',
         color: 'from-violet-600 to-indigo-600',
     },
     {
-        icon: '💬',
+        icon: <MessageCircle size={28} className="text-white" />,
         title: 'AI Chat Tutor',
         desc: 'Ask questions, clarify doubts, and learn concepts with your personal AI mentor.',
         to: '/chat',
         color: 'from-cyan-600 to-blue-600',
     },
     {
-        icon: '📝',
+        icon: <FileText size={28} className="text-white" />,
         title: 'Practice Tests',
         desc: 'Generate topic-wise MCQ tests instantly. Track your score and review explanations.',
         to: '/practice',
         color: 'from-emerald-600 to-teal-600',
     },
     {
-        icon: '📊',
+        icon: <BarChart2 size={28} className="text-white" />,
         title: 'Performance Dashboard',
         desc: 'View accuracy by topic, spot weak areas, and get AI-powered study recommendations.',
         to: '/dashboard',

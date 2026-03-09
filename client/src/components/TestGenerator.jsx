@@ -19,6 +19,7 @@ import MathText from './MathText';
 import { generateTest, submitAttempt } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import { useExam } from '../context/ExamContext';
+import { AlertTriangle, FileText, Clock, HelpCircle, Activity, Zap, Monitor, Maximize, ChevronRight, ChevronLeft, Bookmark, Save, X, Award, ThumbsUp, Flame, RefreshCw, CheckCircle2, XCircle, SkipForward } from 'lucide-react';
 
 // ── Color map for question navigator bubbles ─────────────────────────────────
 const STATUS_STYLE = {
@@ -197,7 +198,7 @@ export default function TestGenerator() {
             setViolations(count);
 
             if (count >= MAX_VIOLATIONS) {
-                setViolationMsg('❌ Test auto-submitted: too many violations!');
+                setViolationMsg(<><AlertTriangle size={16} className="inline mr-1" /> Test auto-submitted: too many violations!</>);
                 finishTest();
             } else {
                 setViolationMsg(`⚠️ Warning ${count}/${MAX_VIOLATIONS}: ${reason}. Auto-submit on 3rd.`);
@@ -381,7 +382,7 @@ export default function TestGenerator() {
             <div className="max-w-xl mx-auto px-4 py-16 animate-fade-in-up">
                 <div className="glass-card p-8 space-y-6">
                     <div className="text-center">
-                        <div className="text-5xl mb-3">📝</div>
+                        <FileText size={48} className="mx-auto mb-3 text-brand-400" />
                         <h2 className="text-2xl font-bold gradient-text">Start a Practice Test</h2>
                         <p className="text-sm text-gray-400 mt-1">Enter topic, questions, and total test time.</p>
                     </div>
@@ -415,13 +416,13 @@ export default function TestGenerator() {
                     </div>
 
                     <div className="flex justify-between text-xs text-gray-500 bg-white/3 rounded-xl px-4 py-3">
-                        <span>⏱ Total Time: <b className="text-gray-300">{totalMins} min</b></span>
-                        <span>❓ Questions: <b className="text-gray-300">{count}</b></span>
-                        <span>⏳ Avg per Q: <b className="text-gray-300">{(totalMins / count).toFixed(1)} min</b></span>
+                        <span><Clock size={16} className="inline mr-1 text-gray-400" /> Total Time: <b className="text-gray-300">{totalMins} min</b></span>
+                        <span><HelpCircle size={16} className="inline mr-1 text-gray-400" /> Questions: <b className="text-gray-300">{count}</b></span>
+                        <span><Activity size={16} className="inline mr-1 text-gray-400" /> Avg per Q: <b className="text-gray-300">{(totalMins / count).toFixed(1)} min</b></span>
                     </div>
 
                     <button onClick={handleGenerate} disabled={loading || !topic.trim()} className="btn-primary w-full py-4 text-base">
-                        {loading ? <><div className="spinner" /> Generating…</> : '⚡ Generate & Start Test'}
+                        {loading ? <><div className="spinner" /> Generating…</> : <><Zap size={16} className="inline mr-2" /> Generate & Start Test</>}
                     </button>
                 </div>
             </div>
@@ -442,7 +443,7 @@ export default function TestGenerator() {
                 {needsFullscreen && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm">
                         <div className="glass-card p-10 text-center space-y-5 max-w-sm mx-4">
-                            <div className="text-5xl">🖥️</div>
+                            <Monitor size={48} className="mx-auto mb-2 text-gray-400" />
                             <h2 className="text-xl font-bold text-white">Fullscreen Required</h2>
                             <p className="text-sm text-gray-400">
                                 This test runs in fullscreen mode.<br />
@@ -453,7 +454,7 @@ export default function TestGenerator() {
                                 onClick={enterFullscreen}
                                 className="btn-primary w-full py-4 text-base"
                             >
-                                ⛶ Enter Fullscreen &amp; Start
+                                <Maximize size={16} className="inline mr-2" /> Enter Fullscreen &amp; Start
                             </button>
                         </div>
                     </div>
@@ -479,7 +480,7 @@ export default function TestGenerator() {
 
                     {/* Left: topic */}
                     <div className="flex items-center gap-2 min-w-0">
-                        <span className="text-base">📝</span>
+                        <FileText size={18} />
                         <span className="text-sm font-bold text-brand-300 truncate max-w-[160px]">{topic}</span>
                         <span className="text-xs text-gray-500 shrink-0">| Q {current + 1}/{questions.length}</span>
                     </div>
@@ -501,7 +502,7 @@ export default function TestGenerator() {
                             onClick={() => setNavOpen((o) => !o)}
                             className="text-xs text-gray-400 hover:text-white border border-white/10 rounded-lg px-3 py-1.5 transition-colors"
                         >
-                            {navOpen ? '▶ Panel' : '◀ Panel'}
+                            {navOpen ? <><ChevronRight size={14} className="inline" /> Panel</> : <><ChevronLeft size={14} className="inline" /> Panel</>}
                         </button>
                         <button
                             onClick={() => {
@@ -562,40 +563,40 @@ export default function TestGenerator() {
                                 onClick={handleMarkReview}
                                 className="px-4 py-2.5 rounded-xl border border-purple-500/40 bg-purple-500/10 text-purple-300 text-sm font-medium hover:bg-purple-500/20 transition-colors"
                             >
-                                🔖 Mark for Review
+                                <Bookmark size={16} className="inline mr-1" /> Mark for Review
                             </button>
                             <button
                                 onClick={handleSaveMarkNext}
                                 className="px-4 py-2.5 rounded-xl border border-purple-400/40 bg-purple-400/10 text-purple-200 text-sm font-medium hover:bg-purple-400/20 transition-colors"
                             >
-                                💾 Save & Mark for Review
+                                <Save size={16} className="inline mr-1" /> Save & Mark for Review
                             </button>
                             <button
                                 onClick={handleClear}
                                 className="px-4 py-2.5 rounded-xl border border-white/10 bg-white/5 text-gray-400 text-sm hover:bg-white/10 transition-colors"
                             >
-                                ✕ Clear Response
+                                <X size={16} className="inline mr-1" /> Clear Response
                             </button>
                             {current < questions.length - 1 ? (
                                 <button
                                     onClick={() => handleSaveNext()}
                                     className="ml-auto btn-primary px-6 py-2.5 text-sm"
                                 >
-                                    Save &amp; Next →
+                                    Save &amp; Next <ChevronRight size={16} className="inline" />
                                 </button>
                             ) : (
                                 <button
                                     onClick={handleSaveOnly}
                                     className="ml-auto btn-primary px-6 py-2.5 text-sm"
                                 >
-                                    💾 Save Answer
+                                    <Save size={16} className="inline mr-1" /> Save Answer
                                 </button>
                             )}
                         </div>
                         {/* Unsaved hint */}
                         {draftAnswer && draftAnswer !== answers[current] && (
                             <p className="text-[10px] text-amber-400/80 text-right mt-2">
-                                ⚠️ Not saved yet — click <b>Save Answer</b> to confirm
+                                <AlertTriangle size={12} className="inline mr-1" /> Not saved yet — click <b>Save Answer</b> to confirm
                             </p>
                         )}
                     </div>
@@ -653,13 +654,13 @@ export default function TestGenerator() {
     // PHASE: RESULT
     // ════════════════════════════════════════════════════════════════════════════
     const pct = result ? Math.round((result.score / result.total) * 100) : 0;
-    const emoji = pct >= 80 ? '🎉' : pct >= 50 ? '👍' : '💪';
+    const emoji = pct >= 80 ? <Award size={64} className="mx-auto text-emerald-400" /> : pct >= 50 ? <ThumbsUp size={64} className="mx-auto text-amber-400" /> : <Flame size={64} className="mx-auto text-red-500" />;
     const msg = pct >= 80 ? 'Excellent work!' : pct >= 50 ? 'Good effort — review the explanations below.' : "Don't give up, keep practicing!";
 
     return (
         <div className="max-w-2xl mx-auto px-4 py-10 animate-fade-in-up">
             <div className="glass-card p-8 text-center mb-8">
-                <div className="text-6xl mb-4">{emoji}</div>
+                <div className="mb-4">{emoji}</div>
                 <h2 className="text-3xl font-bold gradient-text mb-1">{result.score} / {result.total}</h2>
                 <p className="text-gray-400 mb-4">{msg}</p>
                 <div className="h-3 bg-white/5 rounded-full overflow-hidden">
@@ -667,7 +668,7 @@ export default function TestGenerator() {
                         style={{ width: `${pct}%` }} />
                 </div>
                 <p className="text-xs text-gray-500 mt-1">{pct}%</p>
-                <button onClick={reset} className="btn-primary mt-6 px-8 py-3">🔄 New Test</button>
+                <button onClick={reset} className="btn-primary mt-6 px-8 py-3 flex items-center justify-center gap-2 mx-auto"><RefreshCw size={16} /> New Test</button>
             </div>
 
             <div className="space-y-4">
@@ -687,13 +688,13 @@ export default function TestGenerator() {
                                         <div key={j} className={`px-3 py-2 rounded-lg text-xs border flex items-start gap-1 ${isCorrect ? 'border-emerald-500/50 bg-emerald-500/10 text-emerald-300'
                                             : isPicked ? 'border-red-500/50 bg-red-500/10 text-red-300'
                                                 : 'border-white/5 text-gray-500'}`}>
-                                            <span className="shrink-0">{isCorrect ? '✅' : isPicked ? '❌' : ''}</span>
+                                            <span className="shrink-0">{isCorrect ? <CheckCircle2 size={16} className="text-emerald-500" /> : isPicked ? <XCircle size={16} className="text-red-500" /> : ''}</span>
                                             <MathText text={opt} inline={true} />
                                         </div>
                                     );
                                 })}
                             </div>
-                            {skipped && <p className="text-xs text-gray-500 italic mb-2">⏭ Not answered</p>}
+                            {skipped && <p className="text-xs text-gray-500 italic mb-2 flex items-center gap-1"><SkipForward size={14} /> Not answered</p>}
                             {q.explanation && (
                                 <div className="text-xs text-gray-400 leading-relaxed">
                                     <span className="text-brand-300 font-semibold">Explanation: </span><MathText text={q.explanation} />

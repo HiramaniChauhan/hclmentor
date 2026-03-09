@@ -11,6 +11,7 @@ import { useState } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import api, { sendOTP, resetPassword } from '../services/api';
+import { Eye, EyeOff, Key, FileText, Lock, Mail, Check } from 'lucide-react';
 
 // ── Password rules ────────────────────────────────────────────────────────────
 const RULES = [
@@ -88,7 +89,7 @@ function Field({ label, type = 'text', value, onChange, placeholder }) {
                         className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500
                                    hover:text-gray-300 text-xs transition-colors"
                     >
-                        {showPw ? '🙈' : '👁'}
+                        {showPw ? <EyeOff size={16} /> : <Eye size={16} />}
                     </button>
                 )}
             </div>
@@ -216,8 +217,8 @@ export default function Auth() {
 
                 {/* ── Title ── */}
                 <div className="text-center mb-6">
-                    <div className="text-4xl mb-2">
-                        {view.startsWith('forgot') ? '🔑' : view.startsWith('signup') ? '📝' : '🔐'}
+                    <div className="flex justify-center text-brand-400 mb-4">
+                        {view.startsWith('forgot') ? <Key size={36} /> : view.startsWith('signup') ? <FileText size={36} /> : <Lock size={36} />}
                     </div>
                     <h1 className="text-2xl font-bold gradient-text">
                         {view === 'signin' && 'Welcome Back'}
@@ -282,8 +283,8 @@ export default function Auth() {
                         </div>
 
                         <button type="submit" disabled={loading || !name || !email || !allPassed}
-                            className="btn-primary w-full py-3 mt-2">
-                            {loading ? <><div className="spinner" /> Sending OTP…</> : '📧 Send Verification Code'}
+                            className="btn-primary flex justify-center items-center gap-2 w-full py-3 mt-2">
+                            {loading ? <><div className="spinner" /> Sending OTP…</> : <><Mail size={16} /> Send Verification Code</>}
                         </button>
 
                         <p className="text-xs text-center text-gray-500">
@@ -302,8 +303,8 @@ export default function Auth() {
                         <OTPInput value={otp} onChange={setOtp} />
 
                         <button type="submit" disabled={loading || otp.length < 6}
-                            className="btn-primary w-full py-3">
-                            {loading ? <><div className="spinner" /> Verifying…</> : '✅ Verify & Create Account'}
+                            className="btn-primary flex justify-center items-center gap-2 w-full py-3">
+                            {loading ? <><div className="spinner" /> Verifying…</> : <><Check size={16} /> Verify & Create Account</>}
                         </button>
 
                         <div className="flex justify-between text-xs">
@@ -324,8 +325,8 @@ export default function Auth() {
                     <form onSubmit={handleForgotSendOTP} className="space-y-4">
                         <Field label="Email" type="email" value={email} onChange={setEmail} placeholder="you@example.com" />
 
-                        <button type="submit" disabled={loading || !email} className="btn-primary w-full py-3">
-                            {loading ? <><div className="spinner" /> Sending…</> : '📧 Send Reset Code'}
+                        <button type="submit" disabled={loading || !email} className="btn-primary flex justify-center items-center gap-2 w-full py-3">
+                            {loading ? <><div className="spinner" /> Sending…</> : <><Mail size={16} /> Send Reset Code</>}
                         </button>
 
                         <p className="text-xs text-center">
@@ -347,8 +348,8 @@ export default function Auth() {
                         </div>
 
                         <button type="submit" disabled={loading || otp.length < 6 || !newAllPassed}
-                            className="btn-primary w-full py-3">
-                            {loading ? <><div className="spinner" /> Resetting…</> : '🔑 Reset Password'}
+                            className="btn-primary flex justify-center items-center gap-2 w-full py-3">
+                            {loading ? <><div className="spinner" /> Resetting…</> : <><Key size={16} /> Reset Password</>}
                         </button>
 
                         <div className="flex justify-between text-xs">

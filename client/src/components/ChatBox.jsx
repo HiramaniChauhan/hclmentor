@@ -7,6 +7,11 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react';
 import MathText from './MathText';
+import ReactMarkdown from 'react-markdown';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+import 'katex/dist/katex.min.css';
+import { Volume2, Square, MessageCircle, Bot } from 'lucide-react';
 
 // ── Per-message audio button ──────────────────────────────────────────────────
 function SpeakButton({ text }) {
@@ -41,7 +46,7 @@ function SpeakButton({ text }) {
                 : 'border-white/10 text-gray-500 hover:text-gray-300 hover:border-white/20'
                 }`}
         >
-            {speaking ? '⏹ Stop' : '🔊 Read aloud'}
+            {speaking ? <><Square size={14} /> Stop</> : <><Volume2 size={14} /> Read aloud</>}
         </button>
     );
 }
@@ -67,9 +72,9 @@ export default function ChatBox({ messages, onSend, loading }) {
             {/* Message list */}
             <div className="flex-1 overflow-y-auto space-y-5 p-4">
                 {messages.length === 0 && (
-                    <div className="text-center text-gray-500 mt-20">
-                        <div className="text-5xl mb-4">💬</div>
-                        <p className="text-lg">Ask me anything about JEE, NIMCET, or GATE!</p>
+                    <div className="flex flex-col items-center opacity-50">
+                        <MessageCircle size={48} className="mx-auto mb-4 text-brand-400" />
+                        <p className="text-gray-400 text-sm">Start the conversation</p>
                         <p className="text-sm mt-1 opacity-60">I'm your AI Study Mentor</p>
                     </div>
                 )}
@@ -88,7 +93,7 @@ export default function ChatBox({ messages, onSend, loading }) {
                         ) : (
                             /* ── AI bubble ── */
                             <div className="max-w-[82%] glass-card rounded-2xl rounded-bl-md px-5 py-4 text-sm text-gray-200">
-                                <span className="block text-xs font-semibold text-brand-400 mb-2">🤖 AI Mentor</span>
+                                <span className="flex items-center gap-1.5 text-xs font-semibold text-brand-400 mb-2"><Bot size={14} /> AI Mentor</span>
                                 <MathText text={msg.content} />
                                 <SpeakButton text={msg.content} />
                             </div>
